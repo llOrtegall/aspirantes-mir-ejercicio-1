@@ -3,7 +3,11 @@ import { useEffect, useState } from 'react'
 export const App = () => {
   const [fact, setFac] = useState('aqui el app de gatitos')
 
-  const [] = useEffect()
+  useEffect(() => {
+    fetch('https://catfact.ninja/fact')
+      .then(res => res.json())
+      .then(data => setFac(data.fact))
+  }, [])
 
   return (
     <main>
