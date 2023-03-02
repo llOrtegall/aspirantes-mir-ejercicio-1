@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 const CAT_ENDPOINT_RAMDON = 'https://catfact.ninja/fact'
 
 export const App = () => {
-  const [fact, setFac] = useState('aqui el app de gatitos')
+  const [fact, setFac] = useState()
 
   useEffect(() => {
     fetch(CAT_ENDPOINT_RAMDON)
@@ -15,8 +15,8 @@ export const App = () => {
 
   return (
     <main>
-      <h1>App De Gatitos</h1>
-      <p>{fact}</p>
+      <h1>App De Renderizado</h1>
+      {fact && <p>{fact}</p>}
     </main>
   )
 }
