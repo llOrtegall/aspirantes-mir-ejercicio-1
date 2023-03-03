@@ -7,11 +7,13 @@ const CAT_ENDPOINT_RAMDON = 'https://catfact.ninja/fact'
 export const App = () => {
   const [fact, setFac] = useState()
   const [imageUrl, setImageUrl] = useState()
+  // const [factError, setFactError] = useState()
 
   // EFECTO PARA RECUPERAR LA CITA
   useEffect(() => {
     fetch(CAT_ENDPOINT_RAMDON)
-      .then(res => res.json())
+      .then(res => res.json()
+      )
       .then(data => {
         const { fact } = data
         setFac(fact)
