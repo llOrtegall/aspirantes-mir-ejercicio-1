@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
+import './App.css'
 
 const CAT_ENDPOINT_WORD = 'https://cataas.com/'
-
 const CAT_ENDPOINT_RAMDON = 'https://catfact.ninja/fact'
 
 export const App = () => {
@@ -29,9 +29,12 @@ export const App = () => {
 
   return (
     <main>
-      <h1>App De Renderizado</h1>
-      {fact && <p>{fact}</p>}
-      {imageUrl && <img src={imageUrl} alt='Image extracted using the firt worlds' />}
+      <h1>App De Gatitos</h1>
+      <section>
+        {fact && <p>{fact}</p>}
+        {imageUrl && <img src={imageUrl} alt='Image extracted using the firt worlds' />}
+      </section>
+
     </main>
   )
 }
