@@ -25,13 +25,17 @@ export function App () {
       <Routes>
         <Route index element={<Landing />} />
         <Route path='/landing' element={<Landing />} />
-        <Route path='/home' element={
-          <ProtectdeRoute user={user} redirectTo='/dashboard'>
-            <Home />
+
+        <Route element={<ProtectdeRoute user={user} />}>
+          <Route path='/home' element={<Home />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+        </Route>
+
+        <Route path='/analytics' element={
+          <ProtectdeRoute user={user} redirectTo='/landing' >
+            <Analytics />
           </ProtectdeRoute>
         } />
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/analytics' element={<Analytics />} />
         <Route path='/admin' element={<Admin />} />
       </Routes>
     </BrowserRouter>
