@@ -8,7 +8,7 @@ import { useState } from 'react'
 export function App () {
   const [user, setUser] = useState(null)
 
-  const login = () => setUser({ id: 1, name: 'Ivan Ortega' })
+  const login = () => setUser({ id: 1, name: 'Ivan Ortega', permissions: ['analize'], roles: [''] })
   const logOut = () => setUser(null)
 
   return (
@@ -26,17 +26,25 @@ export function App () {
         <Route index element={<Landing />} />
         <Route path='/landing' element={<Landing />} />
 
-        <Route element={<ProtectdeRoute user={user} />}>
+        <Route element={<ProtectdeRoute isAllowed={!!user} />}>
           <Route path='/home' element={<Home />} />
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
 
         <Route path='/analytics' element={
-          <ProtectdeRoute user={user} redirectTo='/landing' >
+          <ProtectdeRoute
+            isAllowed={!!user && user.permissions.includes('analize')}
+            redirectTo='/home' >
             <Analytics />
           </ProtectdeRoute>
         } />
-        <Route path='/admin' element={<Admin />} />
+        <Route path='/admin' element={
+          <ProtectdeRoute
+            isAllowed={!!user && user.roles.includes('admin')}
+            redirectTo='/home' >
+            <Admin />
+          </ProtectdeRoute>
+        } />
       </Routes>
     </BrowserRouter>
   )
