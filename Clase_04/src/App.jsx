@@ -1,21 +1,33 @@
 import './App.css'
+import { TwitterFollowCard } from "./TwitterFollowCard.jsx";
 
 export function App() {
-  return (
-    <article /*style={{ display: 'flex', alignItems: 'center', color: '#fff' }}*/>
-      <header>
-        <img alt="user avatar" src="https://unavatar.io/llOrTeGall" />
-        <div>
-          <strong>Ivan Ortega</strong>
-          <span>@llOrTeGall</span>
-        </div>
-      </header>
 
-      <aside>
-        <button>
-          Seguir
-        </button>
-      </aside>
-    </article>
+  // TODO: Podemos pasar un función como Prop
+  const formatUserName = userName => `@${userName}`
+
+  return (
+    <section className='App'>
+      <TwitterFollowCard
+        formatUserName={formatUserName}
+        isFollowings
+        userName='llOrTeGall'
+        name='Ivan Ortega Garzon'
+      />
+
+      <TwitterFollowCard
+        formatUserName={formatUserName}
+        isFollowing={false}
+        userName='midudev'
+        name='Miguel Angel Duran'
+      />
+
+      <TwitterFollowCard
+        formatUserName={formatUserName}
+        isFollowing={true}
+        userName='goncy'
+        name='Goncy Eduardo Varas'
+      />
+    </section>
   )
 }
