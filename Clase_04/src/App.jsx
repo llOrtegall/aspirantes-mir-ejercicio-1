@@ -1,6 +1,8 @@
+import './App.css'
+
 export function App() {
   return (
-    <article>
+    <article /*style={{ display: 'flex', alignItems: 'center', color: '#fff' }}*/>
       <header>
         <img alt="user avatar" src="https://unavatar.io/llOrTeGall" />
         <div>
