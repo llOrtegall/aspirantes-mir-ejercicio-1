@@ -9,6 +9,7 @@ export function App() {
   const formatUserName = userName => `@${userName}`
 
   const IvanOrtega = {
+    InitialisFollowing: true,
     userName: 'llOrTeGall',
     name: 'Ivan Ortega',
     formatUserName
@@ -20,12 +21,14 @@ export function App() {
         <TwitterFollowCard {...IvanOrtega} />
 
         <TwitterFollowCard
+          InitialisFollowing={false}
           formatUserName={formatUserName}
           userName={name}
           name='Miguel Angel Duran'
         />
 
         <TwitterFollowCard
+          InitialisFollowing
           formatUserName={formatUserName}
           userName='goncy'
           name='Goncy Eduardo Varas'
