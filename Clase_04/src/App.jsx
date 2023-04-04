@@ -15,8 +15,44 @@ export function App() {
     formatUserName
   }
 
+  // TODO: Renderizado de Objectos
+  const Users = [
+    {
+      userName: 'Andrea34',
+      name: 'Andrea Sandoval Martinez',
+      InitialisFollowing: true,
+      formatUserName: formatUserName
+    },
+    {
+      userName: 'Sebastian23',
+      name: 'Sebastian Paloma',
+      InitialisFollowing: false,
+      formatUserName: formatUserName
+    },
+    {
+      userName: 'Elonmusk',
+      name: 'Elon Musk Variante',
+      InitialisFollowing: true,
+      formatUserName: formatUserName
+    },
+  ]
+
   return (
     <>
+      <section className='App'>
+        {Users.map(user => {
+          const { userName, name, InitialisFollowing, formatUserName } = user
+          return (
+            <TwitterFollowCard key={userName}
+              InitialisFollowing={InitialisFollowing}
+              userName={userName}
+              name={name}
+              formatUserName={formatUserName}
+            />
+          )
+        })}
+      </section>
+
       <section className='App'>
         <TwitterFollowCard {...IvanOrtega} />
 

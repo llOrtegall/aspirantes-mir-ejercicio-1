@@ -15,7 +15,6 @@ export function TwitterFollowCard({ formatUserName, userName, name, InitialisFol
     ? 'tw-followCard-button is-following'
     : 'tw-followCard-button'
 
-  console.log(isFollowing)
   const ImageSrc = `https://unavatar.io/${userName}`
 
   const handleClick = () => {
