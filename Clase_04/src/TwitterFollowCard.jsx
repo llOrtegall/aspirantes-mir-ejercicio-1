@@ -3,9 +3,9 @@ import { useState } from "react";
 export function TwitterFollowCard({ formatUserName, userName, name }) {
 
   /* //TODO: como funciona el useState
-    const state = useState(false)
-    const isFollowing = state[0]
-    const setIsFollowing = state[1]
+    * const state = useState(false)
+    * const isFollowing = state[0]
+    * const setIsFollowing = state[1]
   */
   const [isFollowing, setIsFollowing] = useState(false)
 
