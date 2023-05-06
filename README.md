@@ -1,0 +1,1 @@
+git ini --> Inicializa un repositorio de forma local
