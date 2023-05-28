@@ -11,6 +11,14 @@ header{
     background-color: rgb(202, 202, 202);
 }
 
+#cartshopp{
+    position: absolute;
+    width: auto;
+    top: 55px;
+    right: 0;
+    background-color: cadetblue;
+}
+
 ul{
     margin: 0;
     padding: 0;
@@ -32,11 +40,16 @@ a{
     font-weight: bold;
 }
 
+.vaciarCart{
+    
+    background-color: blueviolet;
+}
+
 button:hover{
     cursor: pointer;
 }
 
-.cartShop button{
+#cart button{
     color: white;
     text-shadow: 1px 1px black;
     font-weight: bold;
