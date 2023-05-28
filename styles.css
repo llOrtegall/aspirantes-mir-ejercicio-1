@@ -1,10 +1,36 @@
 header{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
-figure{
+ul{
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
+}
+
+li{
+    display: flex;
+    margin: auto;
+}
+
+a{
+    font-size: 18px;
+    text-decoration: none;
+    margin: 0 10px 0px 10px;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+button{
+    background-color: aqua;
+    border: none;
+    width: auto;
+    height: 30px;
+    border-radius: 10px;
 }
