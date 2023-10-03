@@ -5,12 +5,12 @@ const TURNOS = {
   O: 'o',
 }
 
-
-
 // eslint-disable-next-line react/prop-types
-const Cuadrado = ({ children, actualizaTabla, index }) => {
+const Cuadrado = ({ children, isSelect, actualizaTabla, index }) => {
+  const className = `square ${isSelect ? 'is-selected' : ''}`
+
   return (
-    <div className="square">
+    <div className={className}>
       {children}
     </div>
   )
@@ -19,6 +19,7 @@ const Cuadrado = ({ children, actualizaTabla, index }) => {
 export function App() {
 
   const [tabla, setTabla] = useState(Array(9).fill(null))
+  const [turno, setTurno] = useState(TURNOS.X)
 
   return (
     <main className="board">
@@ -29,11 +30,19 @@ export function App() {
             return (
               <Cuadrado key={index}
                 index={index}>
-                {index}
+                {tabla[index]}
               </Cuadrado>
             )
           })
         }
+      </section>
+      <section className="turn">
+        <Cuadrado isSelect={turno === TURNOS.X}>
+          {TURNOS.X}
+        </Cuadrado>
+        <Cuadrado isSelect={turno === TURNOS.O}>
+          {TURNOS.O}
+        </Cuadrado>
       </section>
     </main>
   )
