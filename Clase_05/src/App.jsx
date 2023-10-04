@@ -9,7 +9,7 @@ const TURNOS = {
 const Cuadrado = ({ children, isSelect, actualizaTabla, index }) => {
   const className = `square ${isSelect ? 'is-selected' : ''}`
   const handleClick = () => {
-    actualizaTabla()
+    actualizaTabla(index)
   }
   return (
     <div onClick={handleClick} className={className}>
@@ -23,8 +23,13 @@ export function App() {
   const [tabla, setTabla] = useState(Array(9).fill(null))
   const [turno, setTurno] = useState(TURNOS.X)
 
-  const updateBoard = () => {
+  const updateBoard = (index) => {
+    const newTabla = [...tabla]
+    newTabla[index] = turno // x u o
+    setTabla(newTabla)
+
     const newTurno = turno === TURNOS.X ? TURNOS.O : TURNOS.X
+    setTurno(newTurno)
   }
 
   return (
