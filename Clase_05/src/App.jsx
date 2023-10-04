@@ -65,8 +65,17 @@ export function App() {
     //TODO: Revisamos si alguien gano
     const newGanador = verGanador(newTabla)
     if (newGanador) {
-      setGanador(newGanador)
+      setGanador(newGanador) // ???
+      alert(`El ganador Es: ${newGanador}`)
     }
+
+    //TODO: Revisamos si nadie gana
+  }
+
+  const resetearJuego = () => {
+    setTabla(Array(9).fill(null));
+    setTurno(TURNOS.X);
+    setGanador(null);
   }
 
   return (
@@ -93,6 +102,34 @@ export function App() {
         <Cuadrado isSelect={turno === TURNOS.O}>
           {TURNOS.O}
         </Cuadrado>
+      </section>
+
+      <section>
+        {
+          ganador !== null && (
+            <section className="winner">
+              <div className="text">
+                <h2>
+                  {
+                    ganador === false
+                      ? 'Empate'
+                      : 'Gano: '
+                  }
+                </h2>
+
+                <header className="win">
+                  {ganador && <Cuadrado>{ganador}</Cuadrado>}
+                </header>
+
+                <footer>
+                  <button onClick={resetearJuego}>
+                    Empezar De Nuevo
+                  </button>
+                </footer>
+              </div>
+            </section>
+          )
+        }
       </section>
     </main>
   )
