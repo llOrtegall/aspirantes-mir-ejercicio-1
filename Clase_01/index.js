@@ -1,16 +1,20 @@
-const button = document.querySelector('button')
+// * Vanilla JavaScript
 
-button.addEventListener('click', function () {
+// * Recuperamos todos los botones
+const buttons = document.querySelectorAll('button')
 
-    // TODO: Ejemplo De Código Imperativo
+buttons.forEach(button => {
+  // TODO: Ejemplo De Código Imperativo
 
+  button.addEventListener('click', function () {
     const id = button.getAttribute('data-id')
 
     if (button.classList.contains('liked')) {
-        button.classList.remove('liked')
-        button.innerText = 'Me Gusta'
+      button.classList.remove('liked')
+      button.innerText = 'Me Gusta'
     } else {
-        button.classList.add('liked')
-        button.innerText = 'Quitar Me Gusta'
+      button.classList.add('liked')
+      button.innerText = 'Quitar Me Gusta'
     }
+  })
 })
