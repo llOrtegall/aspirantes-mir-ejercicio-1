@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import ReactDom from 'react-dom/client'
 import App from './src/App'
 import React from 'react'

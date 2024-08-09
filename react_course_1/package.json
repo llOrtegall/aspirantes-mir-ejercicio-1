@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "4.3.1",
+    "@vitejs/plugin-react": "^4.3.1",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
@@ -18,6 +18,9 @@
     "vite": "5.4.0"
   },
   "eslintConfig": {
-    "extends": "standard"
+    "extends": "standard",
+    "rules": {
+      "no-unused-vars": "off"
+    }
   }
 }
