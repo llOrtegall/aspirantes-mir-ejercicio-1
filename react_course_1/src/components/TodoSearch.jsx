@@ -1,8 +1,10 @@
-function TodoSearch () {
+function TodoSearch ({ search, setSearch }) {
   return (
-    <div className="section-buscar">
-      <input placeholder="buscar" />
-    </div>
+    <input
+      className='p-2 rounded-md border border-blue-500'
+      placeholder="Buscar" value={search}
+      onChange={ev => setSearch(ev.target.value)}
+    />
   )
 }
 
