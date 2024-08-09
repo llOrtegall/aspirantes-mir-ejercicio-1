@@ -1,5 +1,9 @@
 function CreateTodoButton () {
-  return (<button>Crear Tarea</button>)
+  return (
+    <button id="crear-tarea">
+      Crear Tarea
+    </button>
+  )
 }
 
 export { CreateTodoButton }
