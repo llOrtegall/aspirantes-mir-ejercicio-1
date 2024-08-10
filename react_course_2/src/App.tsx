@@ -1,53 +1,40 @@
 import { ValidateNewTodo, ValidationError } from "./utilities/ValidationTodos"
+import { FormEvent, useCallback, useState } from "react"
 import { TodoItem } from "./components/TodoItem"
-import { FormEvent, useState } from "react"
 import { TodoItemI } from "./types/Todo"
 import { toast, Toaster } from "sonner"
 
-const TodosArray = [
-  { id: 1, title: 'task 1', description: 'Ejercicio 1 test', completed: true },
-  { id: 2, title: 'task 2', description: 'Ejercicio 2 test', completed: false },
-  { id: 3, title: 'task 3', description: 'Ejercicio 3 test', completed: true },
-  { id: 4, title: 'task 4', description: 'Ejercicio 4 test', completed: false },
-  { id: 5, title: 'task 5', description: 'Ejercicio 5 test', completed: true }
-]
-
-
 function App() {
-  const [todos, setTodos] = useState<TodoItemI[]>(TodosArray)
+  const [todos, setTodos] = useState<TodoItemI[]>([])
+  const [message, setMessage] = useState({ message: '', description: ''})
   const [error, setError] = useState({ message: '', description: '' })
 
-  const handleSubmit = (ev: FormEvent) => {
+  const handleSubmit = useCallback((ev: FormEvent) => {
     ev.preventDefault();
 
     const form = ev.target as HTMLFormElement;
+    const fields = Object.fromEntries(new FormData(form));
+    const { titulo, description } = fields as { titulo: string; description: string };
 
-    const fields = Object.fromEntries(new globalThis.window.FormData(form))
-    
     try {
-      const result = ValidateNewTodo({ titulo: fields.titulo as string, description: fields.description as string })
+      const result = ValidateNewTodo({ titulo, description });
 
-      if(result){
-        const copyTodos = [...todos]
-        copyTodos.push({ id: todos.length + 1, title: fields.titulo as string, description: fields.description as string, completed: false })
-
-        setTodos(copyTodos)
-
-        form.reset()
+      if (result) {
+        setTodos((prevTodos) => [
+          ...prevTodos,
+          { id: prevTodos.length + 1, title: titulo, description, completed: false },
+        ]);
+        form.reset();
+        setMessage({ message: 'Tarea Creada Correctamente', description: titulo })
       }
-
     } catch (error) {
-      if ( error instanceof ValidationError){
-        setError({ message: error.message, description: error.name })
+      if (error instanceof ValidationError) {
+        setError({ message: error.message, description: error.name });
       }
     } finally {
-      setTimeout(() => {
-        setError({ message: '', description: '' })
-      }, 4000)
+      setTimeout(() => setError({ message: '', description: '' }), 4000);
     }
-  
-
-  }
+  }, []);
 
   return (
     <section className="w-screen h-screen bg-slate-200">
@@ -81,9 +68,8 @@ function App() {
         </ul>
       </main>
 
-      {
-        error && error.message !== '' && toast.error(error.message, { description: error.description })
-      }
+      { error && error.message !== '' && toast.error(error.message, { description: error.description }) }
+      { message && message.message !== '' && toast.success(message.message, { description: message.description}) }
 
       <Toaster position="top-right" duration={4000} />
     </section>
