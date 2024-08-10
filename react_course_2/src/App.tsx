@@ -1,11 +1,6 @@
+import { TodoItem } from "./components/TodoItem"
+import { TodoItemI } from "./types/Todo"
 import { useState } from "react"
-
-interface TodoIF {
-  id: number
-  title: string
-  description: string
-  completed: boolean
-}
 
 const TodosArray = [
   { id: 1, title: 'task 1',  description: 'Ejercicio 1 test', completed: true },
@@ -16,7 +11,7 @@ const TodosArray = [
 ]
 
 function App() {
-  const [todos, setTodos] = useState<TodoIF[]>(TodosArray)
+  const [todos, setTodos] = useState<TodoItemI[]>(TodosArray)
 
   const handleChangeNewTodo = (ev: React.FormEvent) => {
     ev.preventDefault()
@@ -30,7 +25,7 @@ function App() {
       throw new Error('los campos no pueden estar vacios')
     }
 
-    const addTodo: TodoIF = { id: (todos.length + 1),  title: title_add as string, description: descri_add as string , completed: false }
+    const addTodo: TodoItemI = { id: (todos.length + 1),  title: title_add as string, description: descri_add as string , completed: false }
 
     const copyTodos = [...todos]
     copyTodos.push(addTodo)
@@ -68,16 +63,7 @@ function App() {
             <input type="text" placeholder="Buscar Tarea" className="mb-4 py-2 px-4 rounded-md " />
           </section>
           {
-            todos.map(todo =>
-              <li key={todo.id} className="py-4 text-center flex justify-around border-b-2 bg-blue-300 mb-2 rounded-lg">
-                <input type="checkbox" defaultChecked={todo.completed} />
-                <h3>{todo.title}</h3>
-                <p>{todo.description}</p>
-                <button className="bg-red-400 text-white shadow-md py-1 px-2 rounded-md hover:bg-red-600 transition-all">
-                  Delete
-                </button>
-              </li>
-            )
+            todos.map(todo => <TodoItem key={todo.id} id={todo.id} title={todo.title} description={todo.description} completed={todo.completed} /> )
           }
         </ul>
       </main>
