@@ -1,38 +1,51 @@
+import { ValidateNewTodo, ValidationError } from "./utilities/ValidationTodos"
 import { TodoItem } from "./components/TodoItem"
+import { FormEvent, useState } from "react"
 import { TodoItemI } from "./types/Todo"
-import { useState } from "react"
+import { toast, Toaster } from "sonner"
 
 const TodosArray = [
-  { id: 1, title: 'task 1',  description: 'Ejercicio 1 test', completed: true },
-  { id: 2, title: 'task 2',  description: 'Ejercicio 2 test', completed: false },
-  { id: 3, title: 'task 3',  description: 'Ejercicio 3 test', completed: true },
-  { id: 4, title: 'task 4',  description: 'Ejercicio 4 test', completed: false },
-  { id: 5, title: 'task 5',  description: 'Ejercicio 5 test', completed: true }
+  { id: 1, title: 'task 1', description: 'Ejercicio 1 test', completed: true },
+  { id: 2, title: 'task 2', description: 'Ejercicio 2 test', completed: false },
+  { id: 3, title: 'task 3', description: 'Ejercicio 3 test', completed: true },
+  { id: 4, title: 'task 4', description: 'Ejercicio 4 test', completed: false },
+  { id: 5, title: 'task 5', description: 'Ejercicio 5 test', completed: true }
 ]
+
 
 function App() {
   const [todos, setTodos] = useState<TodoItemI[]>(TodosArray)
+  const [error, setError] = useState({ message: '', description: '' })
 
-  const handleChangeNewTodo = (ev: React.FormEvent) => {
-    ev.preventDefault()
+  const handleSubmit = (ev: FormEvent) => {
+    ev.preventDefault();
+
     const form = ev.target as HTMLFormElement;
-    const fields = Object.fromEntries(new window.FormData(form))
 
-    const title_add = fields.title as string
-    const descri_add = fields.description as string
-
-    if(!title_add || !descri_add){
-      throw new Error('los campos no pueden estar vacios')
-    }
-
-    const addTodo: TodoItemI = { id: (todos.length + 1),  title: title_add as string, description: descri_add as string , completed: false }
-
-    const copyTodos = [...todos]
-    copyTodos.push(addTodo)
-
-    setTodos(copyTodos)
-
+    const fields = Object.fromEntries(new globalThis.window.FormData(form))
     
+    try {
+      const result = ValidateNewTodo({ titulo: fields.titulo as string, description: fields.description as string })
+
+      if(result){
+        const copyTodos = [...todos]
+        copyTodos.push({ id: todos.length + 1, title: fields.titulo as string, description: fields.description as string, completed: false })
+
+        setTodos(copyTodos)
+
+        form.reset()
+      }
+
+    } catch (error) {
+      if ( error instanceof ValidationError){
+        setError({ message: error.message, description: error.name })
+      }
+    } finally {
+      setTimeout(() => {
+        setError({ message: '', description: '' })
+      }, 4000)
+    }
+  
 
   }
 
@@ -43,12 +56,12 @@ function App() {
         <div className="w-5/12 m-auto px-12 py-4 rounded-lg bg-yellow-200">
           <h1 className="text-center mb-4 text-2xl font-semibold uppercase">Creación Nueva Tarea</h1>
 
-          <form className="flex flex-col" onSubmit={handleChangeNewTodo}>
+          <form className="flex flex-col" onSubmit={ev => handleSubmit(ev)}>
             <label>Nombre Tarea:</label>
-            <input name="title" type="text" placeholder="Realizar Mantenimiento ..."
+            <input id="title_new_todo" name="titulo" type="text" placeholder="Realizar Mantenimiento ..."
               className="mb-4 py-2 px-4 rounded-md " />
             <label>Descripción Tarea:</label>
-            <textarea name="description" id="" placeholder="resumen de mi tarea"
+            <textarea id="description_new_todo" name="description" placeholder="resumen de mi tarea"
               className="rounded-md p-2 mb-6"></textarea>
             <button className="px-4 py-2 rounded-md text-white font-semibold bg-green-700 mx-auto hover:bg-green-500">
               Agregar Nueva Tarea
@@ -63,11 +76,16 @@ function App() {
             <input type="text" placeholder="Buscar Tarea" className="mb-4 py-2 px-4 rounded-md " />
           </section>
           {
-            todos.map(todo => <TodoItem key={todo.id} id={todo.id} title={todo.title} description={todo.description} completed={todo.completed} /> )
+            todos.map(todo => <TodoItem key={todo.id} id={todo.id} title={todo.title} description={todo.description} completed={todo.completed} />)
           }
         </ul>
       </main>
 
+      {
+        error && error.message !== '' && toast.error(error.message, { description: error.description })
+      }
+
+      <Toaster position="top-right" duration={4000} />
     </section>
   )
 }
